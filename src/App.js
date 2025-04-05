@@ -1,4 +1,4 @@
-import SnakeScene from "./SnakeScene";
+import SnakeScene from "./SnakeScene.js";
 
 const GameConfig = {
     type: Phaser.AUTO,
