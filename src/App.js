@@ -1,15 +1,14 @@
-import SnakeScene from "./SnakeScene.js";
+import MainScene from "./MainScene.js";
 
 const GameConfig = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    scene: SnakeScene,
+    parent: "game",
+    width: 960,
+    height: 640,
+    backgroundColor: '#8da259',
+    scene: MainScene,
     physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 200 }
-        }
+        default: "arcade",
     }
 };
 
