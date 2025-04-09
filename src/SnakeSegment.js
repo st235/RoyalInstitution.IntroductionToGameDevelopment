@@ -1,7 +1,13 @@
+const _SEGMENT_COLOUR = 0x2e2e2e
+
 export default class SnakeSegment extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y) {
-        super(scene, x, y,
-            /* width= */ 32, /* height= */ 32,
-            /* color= */ 0x2e2e2e);
+    constructor(scene, i, j,
+                width, height) {
+        super(scene,
+            /* x= */ j * width + width / 2,
+            /* y= */ i * height + height / 2,
+            width,
+            height,
+            /* color= */ _SEGMENT_COLOUR);
     }
 }
