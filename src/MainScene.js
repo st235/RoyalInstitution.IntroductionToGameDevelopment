@@ -3,7 +3,14 @@ import Snake from "./Snake.js";
 const _GAMEFIELD_ROWS = 20
 const _GAMEFIELD_COLUMNS = 30
 
+const _SNAKE_MOVE_TIME_MS = 100;
+
 export default class MainScene extends Phaser.Scene {
+    preload() {
+        this._cursors = this.input.keyboard.createCursorKeys();
+        this._lastUpdateTime = 0;
+    }
+
     create() {
         const viewportWidth = this.game.config.width;
         const viewportHeight = this.game.config.height;
@@ -20,5 +27,19 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update(time) {
+        if (this._cursors.right.isDown) {
+            this._snake.faceRight();
+        } else if (this._cursors.up.isDown) {
+            this._snake.faceUp();
+        } else if (this._cursors.left.isDown) {
+            this._snake.faceLeft();
+        } else if (this._cursors.down.isDown) {
+            this._snake.faceDown();
+        }
+
+        if (time - this._lastUpdateTime > _SNAKE_MOVE_TIME_MS) {
+            this._lastUpdateTime = time;
+            this._snake.move();
+        }
     }
 };

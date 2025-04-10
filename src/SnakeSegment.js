@@ -9,5 +9,8 @@ export default class SnakeSegment extends Phaser.GameObjects.Rectangle {
             width,
             height,
             /* color= */ _SEGMENT_COLOUR);
+
+        this.i = i;
+        this.j = j;
     }
 }
