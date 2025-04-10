@@ -1,4 +1,5 @@
 import Snake from "./Snake.js";
+import Food from "./Food.js";
 
 const _GAMEFIELD_ROWS = 20
 const _GAMEFIELD_COLUMNS = 30
@@ -23,7 +24,11 @@ export default class MainScene extends Phaser.Scene {
             segmentWidth, segmentHeight,
             _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
 
+        this._foodItem = new Food(this, segmentWidth, segmentHeight);
+        this._foodItem.place(this._snake.bodyCoordinates(), _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
+
         this.add.existing(this._snake);
+        this.add.existing(this._foodItem);
     }
 
     update(time) {
@@ -40,6 +45,11 @@ export default class MainScene extends Phaser.Scene {
         if (time - this._lastUpdateTime > _SNAKE_MOVE_TIME_MS) {
             this._lastUpdateTime = time;
             this._snake.move();
+        }
+
+        if (this._snake.checkCollisionWith(this._foodItem.i, this._foodItem.j)) {
+            this._snake.grow();
+            this._foodItem.place(this._snake.bodyCoordinates(), _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
         }
     }
 };

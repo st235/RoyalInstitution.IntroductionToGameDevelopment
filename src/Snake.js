@@ -29,6 +29,46 @@ export default class Snake extends Phaser.GameObjects.Group {
         this.add(newSegment, true);
     }
 
+    checkCollisionWith(i, j) {
+        const headSegment = this.getLast(/* active= */ true);
+        return (headSegment.i == i && headSegment.j == j);
+    }
+
+    bodyCoordinates() {
+        let bodyCoordinates = {};
+        this.children.each(child => {
+            const [i, j] = [child.i, child.j];
+
+            if (!(i in bodyCoordinates)) {
+                bodyCoordinates[i] = {};
+            }
+            bodyCoordinates[i][j] = true;
+        }, true);
+        return bodyCoordinates;
+    }
+
+    grow() {
+        const tailSegment = this.getFirst(/* active= */ true);
+
+        const newChildren = [];
+        // Grow the snake by one segment, and add it to the
+        // back of the segments list.
+        newChildren.push([tailSegment.i, tailSegment.j]);
+
+        // Copy existing segments.
+        this.children.each(child => {
+            newChildren.push([child.i, child.j]);
+        });
+
+        // Remove all children and stop drawing them.
+        this.clear(true, true);
+
+        for (const segment of newChildren) {
+            const [i, j] = segment;
+            this._addSegment(i, j);
+        }
+    }
+
     move() {
         const tailSegment = this.getFirst(/* active= */ true);
         const headSegment = this.getLast(/* active= */ true);
