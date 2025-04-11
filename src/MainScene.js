@@ -11,6 +11,7 @@ export default class MainScene extends Phaser.Scene {
         this._isRunning = true;
         this._cursors = this.input.keyboard.createCursorKeys();
         this._lastUpdateTime = 0;
+        this._currentScore = 0;
     }
 
     create() {
@@ -27,6 +28,10 @@ export default class MainScene extends Phaser.Scene {
 
         this._foodItem = new Food(this, segmentWidth, segmentHeight);
         this._foodItem.place(this._snake.bodyCoordinates(), _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
+
+        this._scoreText = this.add.text(viewportWidth - 220, 20, "Score: 0")
+            .setFontSize(32)
+            .setDepth(10);
 
         this.add.existing(this._snake);
         this.add.existing(this._foodItem);
@@ -56,6 +61,8 @@ export default class MainScene extends Phaser.Scene {
             if (this._snake.checkCollisionWith(this._foodItem.i, this._foodItem.j)) {
                 this._snake.grow();
                 this._foodItem.place(snakeOccupiedPoints, _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
+                this._currentScore += this._foodItem.score;
+                this._scoreText.setText("Score: " + this._currentScore);
             }
 
             for (const row in snakeOccupiedPoints) {
