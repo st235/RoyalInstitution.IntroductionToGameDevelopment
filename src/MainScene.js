@@ -8,6 +8,7 @@ const _SNAKE_MOVE_TIME_MS = 100;
 
 export default class MainScene extends Phaser.Scene {
     preload() {
+        this._isRunning = true;
         this._cursors = this.input.keyboard.createCursorKeys();
         this._lastUpdateTime = 0;
     }
@@ -32,6 +33,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update(time) {
+        if (!this._isRunning) {
+            return;
+        }
+
         if (this._cursors.right.isDown) {
             this._snake.faceRight();
         } else if (this._cursors.up.isDown) {
@@ -45,11 +50,21 @@ export default class MainScene extends Phaser.Scene {
         if (time - this._lastUpdateTime > _SNAKE_MOVE_TIME_MS) {
             this._lastUpdateTime = time;
             this._snake.move();
-        }
 
-        if (this._snake.checkCollisionWith(this._foodItem.i, this._foodItem.j)) {
-            this._snake.grow();
-            this._foodItem.place(this._snake.bodyCoordinates(), _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
+            const snakeOccupiedPoints = this._snake.bodyCoordinates();
+
+            if (this._snake.checkCollisionWith(this._foodItem.i, this._foodItem.j)) {
+                this._snake.grow();
+                this._foodItem.place(snakeOccupiedPoints, _GAMEFIELD_ROWS, _GAMEFIELD_COLUMNS);
+            }
+
+            for (const row in snakeOccupiedPoints) {
+                for (const column in snakeOccupiedPoints[row]) {
+                    if (snakeOccupiedPoints[row][column] > 1) {
+                        this._isRunning = false;
+                    }
+                }
+            }
         }
     }
 };

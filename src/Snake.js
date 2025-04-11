@@ -42,7 +42,10 @@ export default class Snake extends Phaser.GameObjects.Group {
             if (!(i in bodyCoordinates)) {
                 bodyCoordinates[i] = {};
             }
-            bodyCoordinates[i][j] = true;
+            if (!(j in bodyCoordinates[i])) {
+                bodyCoordinates[i][j] = 0;
+            }
+            bodyCoordinates[i][j] += 1;
         }, true);
         return bodyCoordinates;
     }
@@ -80,18 +83,26 @@ export default class Snake extends Phaser.GameObjects.Group {
     }
 
     faceRight() {
-        this._moveDirection = _MOVE_DIRECTION_RIGHT;
+        if (this._moveDirection !== _MOVE_DIRECTION_LEFT) {
+            this._moveDirection = _MOVE_DIRECTION_RIGHT;
+        }
     }
 
     faceUp() {
-        this._moveDirection = _MOVE_DIRECTION_UP;
+        if (this._moveDirection !== _MOVE_DIRECTION_DOWN) {
+            this._moveDirection = _MOVE_DIRECTION_UP;
+        }
     }
 
     faceLeft() {
-        this._moveDirection = _MOVE_DIRECTION_LEFT;
+        if (this._moveDirection !== _MOVE_DIRECTION_RIGHT) {
+            this._moveDirection = _MOVE_DIRECTION_LEFT;
+        }
     }
 
     faceDown() {
-        this._moveDirection = _MOVE_DIRECTION_DOWN;
+        if (this._moveDirection !== _MOVE_DIRECTION_UP) {
+            this._moveDirection = _MOVE_DIRECTION_DOWN;
+        }
     }
 };
