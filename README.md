@@ -8,6 +8,9 @@ The workshop uses:
 - [Phaser 3](https://phaser.io/phaser3)
 - JavaScript (Ecmascript 2015)
 
+>[!INFO]
+>Live demo is available at [Github pages](https://st235.github.io/RoyalInstitution.IntroductionToGameDevelopment/).
+
 ## Workshop Goals
 
 - Understand the basic structure of a Phaser project.
