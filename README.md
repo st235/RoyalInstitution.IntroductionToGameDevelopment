@@ -8,7 +8,7 @@ The workshop uses:
 - [Phaser 3](https://phaser.io/phaser3)
 - JavaScript (Ecmascript 2015)
 
->[!INFO]
+>[!IMPORTANT]
 >Live demo is available at [Github pages](https://st235.github.io/RoyalInstitution.IntroductionToGameDevelopment/).
 
 ## Workshop Goals
@@ -31,7 +31,7 @@ Each development milestone is stored as a separate **Git branch**:
 | [`step/6/collisions`](https://github.com/st235/RoyalInstitution.IntroductionToGameDevelopment/tree/step/6/collisions) | Add collision detection with self |
 | [`step/7/display_score`](https://github.com/st235/RoyalInstitution.IntroductionToGameDevelopment/tree/step/7/display_score) | Show and update player score |
 
-> [!NOTE]
+> [!TIP]
 > 💡 **To explore a specific version locally**, run:
 > `git checkout step/X/branch_name`
 
